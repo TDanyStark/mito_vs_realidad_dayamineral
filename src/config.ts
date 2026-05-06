@@ -1,0 +1,1 @@
+export const URL_BASE = "/apps/abbott/mito_vs_realidad_dayamineral";
