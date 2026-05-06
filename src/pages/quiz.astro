@@ -109,14 +109,10 @@ import Layout from "@/layouts/Layout.astro";
 
       <section
         id="quiz-finish"
-        class="hidden w-full rounded-4xl bg-white/84 p-6 text-center text-black shadow-2xl backdrop-blur-sm md:max-w-xl md:p-8 lg:mr-[5vw] lg:w-[47%] lg:max-w-140"
+        class="hidden w-full rounded-4xl bg-cover bg-center bg-no-repeat p-6 text-center text-white shadow-2xl md:max-w-xl md:p-8 lg:mr-[5vw] lg:w-[47%] lg:max-w-140"
+        style={`background-image: url(${URL_BASE}/bg_div.webp);`}
         aria-live="polite"
       >
-        <img
-          src={`${URL_BASE}/logos/logo_dayamineral_color.webp`}
-          alt="Dayamineral"
-          class="mx-auto mb-6 h-auto w-48 md:w-60"
-        />
         <img
           src={`${URL_BASE}/iconos/check.webp`}
           alt=""
@@ -127,6 +123,16 @@ import Layout from "@/layouts/Layout.astro";
         <p class="mx-auto mt-4 max-w-md text-lg font-bold md:text-xl">
           Ahora conoces más sobre los mitos y realidades de la suplementación con Dayamineral.
         </p>
+        <div class="mx-auto mt-6 grid max-w-md gap-3 sm:grid-cols-2">
+          <div class="rounded-3xl border border-white/30 bg-white/18 p-4 shadow-lg backdrop-blur-sm">
+            <p id="quiz-correct-count" class="text-5xl font-black leading-none md:text-6xl">0</p>
+            <p class="mt-2 text-sm font-black uppercase tracking-wide md:text-base">Correctas</p>
+          </div>
+          <div class="rounded-3xl border border-white/30 bg-white/10 p-4 shadow-lg backdrop-blur-sm">
+            <p id="quiz-incorrect-count" class="text-5xl font-black leading-none md:text-6xl">0</p>
+            <p class="mt-2 text-sm font-black uppercase tracking-wide md:text-base">Incorrectas</p>
+          </div>
+        </div>
         <button
           id="quiz-restart"
           type="button"
@@ -329,6 +335,8 @@ import Layout from "@/layouts/Layout.astro";
   const modalTitle = document.getElementById("modal-title");
   const modalMessage = document.getElementById("modal-message");
   const modalNext = document.getElementById("modal-next");
+  const correctCount = document.getElementById("quiz-correct-count");
+  const incorrectCount = document.getElementById("quiz-incorrect-count");
   const restartButton = document.getElementById("quiz-restart");
   let currentQuestion = 0;
   let correctAnswers = 0;
@@ -357,7 +365,7 @@ import Layout from "@/layouts/Layout.astro";
     counter.textContent = `${currentQuestion + 1}.`;
     questionText.innerHTML = question.questionHtml;
     questionCopy.style.color = question.textColor;
-    questionCopy.style.setProperty("--question-copy-bg", question.logoVariant === "light" ? "#111827" : "#ffffff");
+    questionCopy.style.setProperty("--question-copy-bg", question.logoVariant === "light" ? "rgba(17, 24, 39, 0.86)" : "rgba(255, 255, 255, 0.86)");
     counter.style.color = question.textColor;
     questionText.style.color = question.textColor;
     resetButton.style.color = question.textColor;
@@ -484,8 +492,10 @@ import Layout from "@/layouts/Layout.astro";
     quizCard.classList.add("hidden");
     footer.classList.add("hidden");
     finishCard.classList.remove("hidden");
-    setHeaderLogos(questions[questions.length - 1].logoVariant);
-    setBackground(questions.length - 1);
+    correctCount.textContent = String(correctAnswers);
+    incorrectCount.textContent = String(questions.length - correctAnswers);
+    setHeaderLogos("light");
+    wrapper.style.backgroundImage = `url(${URL_BASE}/backgrounds/bg_home.webp)`;
 
     if (correctAnswers === questions.length) {
       launchPerfectFinishConfetti();
