@@ -1,0 +1,19 @@
+---
+import Header from "@/components/Header.astro";
+import { URL_BASE } from "@/config";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout>
+  <div
+    class="min-h-screen flex flex-col bg-right lg:bg-center lg:bg-cover"
+    style={`background-image: url(${URL_BASE}/backgrounds/bg_01.webp);`}
+  >
+    <Header />
+    <main
+      class="w-7xl mx-auto max-w-full p-4 md:p-6 flex-1 flex justify-end h-full items-center"
+    >
+      
+    </main>
+  </div>
+</Layout>
