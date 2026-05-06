@@ -12,11 +12,11 @@ import Layout from "@/layouts/Layout.astro";
   >
     <Header />
     <main
-      class="mx-auto flex w-full max-w-7xl flex-1 items-center justify-end px-4 pb-8 pt-24 md:px-8 md:pb-10 md:pt-28 lg:px-10 lg:pt-24"
+      class="mx-auto flex w-full max-w-7xl flex-1 justify-end p-4"
     >
       <section
         id="quiz-card"
-        class="w-full rounded-4xl bg-white/80 p-5 text-black shadow-2xl backdrop-blur-sm sm:p-7 md:max-w-xl lg:mr-[5vw] lg:w-[47%] lg:max-w-140 lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0"
+        class="w-full rounded-4xl p-5 text-black sm:p-7 md:max-w-xl lg:mr-[5vw] lg:w-[47%] lg:max-w-140 lg:p-0 "
         aria-live="polite"
       >
         <div class="sr-only">
@@ -55,8 +55,8 @@ import Layout from "@/layouts/Layout.astro";
         <div class="mt-8 flex w-full max-w-107.5 flex-col gap-4 md:mt-10">
           <button
             type="button"
-            class="quiz-answer flex items-center gap-4 rounded-full bg-[#c62579] bg-cover bg-center px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(65,20,76,0.26)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(65,20,76,0.32)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:px-8 md:py-5 md:text-5xl"
-            style={`background-image: url(${URL_BASE}/bg_btn_01.webp);`}
+            class="quiz-answer flex items-center gap-4 rounded-full bg-[#c62579] bg-cover bg-center px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(65,20,76,0.26)] transition hover:-translate-y-0.5 hover:bg-[#f4bd18] hover:shadow-[0_16px_28px_rgba(117,84,0,0.28)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:px-8 md:py-5 md:text-5xl"
+            style={`--answer-gradient: url(${URL_BASE}/bg_btn_01.webp);`}
             data-answer="MITO"
           >
             <img
@@ -69,7 +69,8 @@ import Layout from "@/layouts/Layout.astro";
           </button>
           <button
             type="button"
-            class="quiz-answer flex items-center gap-4 rounded-full bg-[#f4bd18] px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(117,84,0,0.22)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(117,84,0,0.28)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:px-8 md:py-5 md:text-5xl"
+            class="quiz-answer flex items-center gap-4 rounded-full bg-[#c62579] bg-cover bg-center px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(65,20,76,0.26)] transition hover:-translate-y-0.5 hover:bg-[#f4bd18] hover:shadow-[0_16px_28px_rgba(117,84,0,0.28)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:px-8 md:py-5 md:text-5xl"
+            style={`--answer-gradient: url(${URL_BASE}/bg_btn_01.webp);`}
             data-answer="REALIDAD"
           >
             <img
@@ -149,6 +150,17 @@ import Layout from "@/layouts/Layout.astro";
     </div>
   </div>
 </Layout>
+
+<style>
+  .quiz-answer {
+    background-image: var(--answer-gradient);
+  }
+
+  .quiz-answer:hover {
+    background-color: #f4bd18;
+    background-image: none;
+  }
+</style>
 
 <script define:vars={{ URL_BASE }}>
   const questions = [
