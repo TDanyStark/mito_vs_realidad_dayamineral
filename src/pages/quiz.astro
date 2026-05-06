@@ -6,14 +6,291 @@ import Layout from "@/layouts/Layout.astro";
 
 <Layout>
   <div
-    class="min-h-screen flex flex-col bg-right lg:bg-center lg:bg-cover"
+    id="quiz-wrapper"
+    class="min-h-screen flex flex-col bg-cover bg-position-[center_top] transition-[background-image] duration-300 md:bg-center lg:bg-[center_center]"
     style={`background-image: url(${URL_BASE}/backgrounds/bg_01.webp);`}
   >
     <Header />
     <main
-      class="w-7xl mx-auto max-w-full p-4 md:p-6 flex-1 flex justify-end h-full items-center"
+      class="mx-auto flex w-full max-w-7xl flex-1 items-center justify-end px-4 pb-8 pt-24 md:px-8 md:pb-10 md:pt-28 lg:px-10 lg:pt-24"
     >
-      
+      <section
+        id="quiz-card"
+        class="w-full rounded-4xl bg-white/80 p-5 text-black shadow-2xl backdrop-blur-sm sm:p-7 md:max-w-xl lg:mr-[5vw] lg:w-[47%] lg:max-w-[560px] lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0"
+        aria-live="polite"
+      >
+        <div class="sr-only">
+          <img
+            src={`${URL_BASE}/logos/logo_dayamineral_color.webp`}
+            alt="Dayamineral"
+            class="h-auto w-36 md:w-44"
+          />
+        </div>
+
+        <p class="sr-only">
+          <img
+            src={`${URL_BASE}/iconos/rayo.webp`}
+            alt=""
+            class="h-5 w-5"
+            aria-hidden="true"
+          />
+          Mito o realidad
+        </p>
+
+        <div class="flex items-start gap-3 text-black md:gap-4">
+          <p
+            id="quiz-counter"
+            class="shrink-0 text-[clamp(1.7rem,2.5vw,2.75rem)] font-black leading-[1.04]"
+          >
+            1.
+          </p>
+          <h1
+            id="quiz-question"
+            class="min-h-36 text-balance text-[clamp(1.7rem,2.5vw,2.75rem)] font-extrabold leading-[1.04] md:min-h-48"
+          >
+            Las personas que tienen una dieta saludable no necesitan un suplemento con vitaminas y minerales como Dayamineral
+          </h1>
+        </div>
+
+        <div class="mt-8 flex w-full max-w-[430px] flex-col gap-4 md:mt-10">
+          <button
+            type="button"
+            class="quiz-answer flex items-center gap-4 rounded-full bg-[#c62579] bg-cover bg-center px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(65,20,76,0.26)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(65,20,76,0.32)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:px-8 md:py-5 md:text-5xl"
+            style={`background-image: url(${URL_BASE}/bg_btn_01.webp);`}
+            data-answer="MITO"
+          >
+            <img
+              src={`${URL_BASE}/iconos/rayo.webp`}
+              alt=""
+              class="h-10 w-10 shrink-0 md:h-12 md:w-12"
+              aria-hidden="true"
+            />
+            <span>MITO</span>
+          </button>
+          <button
+            type="button"
+            class="quiz-answer flex items-center gap-4 rounded-full bg-[#f4bd18] px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(117,84,0,0.22)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(117,84,0,0.28)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:px-8 md:py-5 md:text-5xl"
+            data-answer="REALIDAD"
+          >
+            <img
+              src={`${URL_BASE}/iconos/check.webp`}
+              alt=""
+              class="h-10 w-10 shrink-0 md:h-12 md:w-12"
+              aria-hidden="true"
+            />
+            <span>REALIDAD</span>
+          </button>
+        </div>
+      </section>
+
+      <section
+        id="quiz-finish"
+        class="hidden w-full rounded-[2rem] bg-white/84 p-6 text-center text-black shadow-2xl backdrop-blur-sm md:max-w-xl md:p-8 lg:mr-[5vw] lg:w-[47%] lg:max-w-[560px]"
+        aria-live="polite"
+      >
+        <img
+          src={`${URL_BASE}/logos/logo_dayamineral_color.webp`}
+          alt="Dayamineral"
+          class="mx-auto mb-6 h-auto w-48 md:w-60"
+        />
+        <img
+          src={`${URL_BASE}/iconos/check.webp`}
+          alt=""
+          class="mx-auto mb-5 h-14 w-14"
+          aria-hidden="true"
+        />
+        <h2 class="text-4xl font-black leading-none md:text-6xl">¡Terminaste!</h2>
+        <p class="mx-auto mt-4 max-w-md text-lg font-bold md:text-xl">
+          Ahora conoces más sobre los mitos y realidades de la suplementación con Dayamineral.
+        </p>
+        <button
+          id="quiz-restart"
+          type="button"
+          class="mt-8 rounded-full bg-[#f4bd18] px-8 py-4 text-lg font-black uppercase text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          Reiniciar
+        </button>
+      </section>
     </main>
+
+    <div
+      id="quiz-modal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/55 p-4 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <article class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-[2rem] bg-white p-6 text-black shadow-2xl md:p-8">
+        <div class="mb-4 flex items-start gap-3">
+          <img
+            id="modal-icon"
+            src={`${URL_BASE}/iconos/check.webp`}
+            alt=""
+            class="mt-1 h-9 w-9 shrink-0"
+            aria-hidden="true"
+          />
+          <h2 id="modal-title" class="text-3xl font-black leading-none md:text-5xl">
+            ¡Correcto!
+          </h2>
+        </div>
+        <p id="modal-message" class="text-base font-semibold leading-relaxed md:text-lg"></p>
+        <details id="modal-references" class="mt-5 text-xs leading-relaxed text-black/70 md:text-sm">
+          <summary class="cursor-pointer font-black uppercase tracking-wide">Referencias</summary>
+          <p id="modal-reference-text" class="mt-2"></p>
+        </details>
+        <button
+          id="modal-next"
+          type="button"
+          class="mt-7 w-full rounded-full bg-[#f4bd18] px-8 py-4 text-lg font-black uppercase text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#c62579] sm:w-auto"
+        >
+          SIGUIENTE
+        </button>
+      </article>
+    </div>
   </div>
 </Layout>
+
+<script define:vars={{ URL_BASE }}>
+  const questions = [
+    {
+      question:
+        "Las personas que tienen una dieta saludable no necesitan un suplemento con vitaminas y minerales como Dayamineral",
+      correct: "MITO",
+      message:
+        "La realidad es que la mayoría de las personas, incluso si tienen una dieta variada y saludable, no ingieren la cantidad diaria necesaria de nutrientes esenciales. En parte, esto se debe a que actualmente muchos de los alimentos que consumimos son menos ricos en nutrientes que hace décadas, de modo que es muy probable que la dieta no alcance a cubrir todas las necesidades que el cuerpo necesita.",
+      references:
+        "Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15. | Monografía Dayamineral Jarabe. Junio 2019. | Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
+    },
+    {
+      question: "Las carencias nutricionales no son realmente importantes",
+      correct: "MITO",
+      message:
+        "Es todo lo contrario, ya que las vitaminas y minerales influyen directamente en la salud a largo plazo, por lo que es muy importante mantener unos niveles adecuados. Por ejemplo, los niveles óptimos de vitaminas, como la D, se asocian con una mejor función inmunitaria. Asimismo, las personas que consumen multivitamínicos presentan un menor deterioro cognitivo a medida que envejecen.",
+      references:
+        "Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.",
+    },
+    {
+      question:
+        "Un suplemento multivitamínico de calidad, como Dayamineral, ayuda a las personas a tener un buen desempeño físico y mental",
+      correct: "REALIDAD",
+      message:
+        "Dado que Dayamineral ayuda a obtener las cantidades necesarias de nutrientes que no son cubiertas con la alimentación, las personas que lo consumen obtienen un aumento de la energía, así como una mejora del metabolismo, el sistema inmune y la función cognitiva.",
+      references:
+        "Office of Dietary Supplements. Multivitamin/mineral supplements: fact sheet for health professionals [Internet]. Bethesda (MD): National Institutes of Health. Disponible en: https://n9.cl/tjvn01 | Garg V, Lin J, Gadzhieva-Moore A, et al. The role of multivitamin and mineral supplements in supporting health and well-being: a retrospective cross-sectional study in Taiwan. J Health Popul Nutr. 2025;44(1):423.",
+    },
+    {
+      question:
+        "Los suplementos multivitamínicos y minerales, como Dayamineral, no han demostrado ser seguros",
+      correct: "MITO",
+      message:
+        "Al ser un producto que influye en la salud humana, los suplementos multivitamínicos y minerales deben contar con el aval de la autoridad sanitaria técnica y científica del país donde se comercializa, lo que garantiza su calidad y seguridad. Por ello, es importante elegir productos de marcas de confianza, reconocidas por sus altos estándares de calidad, como es el caso de Dayamineral, que cuenta con el respaldo Abbott. Además, los casos reales de efectos negativos para la salud derivados de una ingesta excesiva de suplementos son poco frecuentes.",
+      references:
+        "Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15. | Monografía Dayamineral Jarabe. Junio 2019. | Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
+    },
+    {
+      question:
+        "Los suplementos multivitamínicos y minerales son todo lo que necesitan las personas para mantenerse saludables",
+      correct: "MITO",
+      message:
+        "El consumo de suplementos multivitamínicos y minerales forma parte de un conjunto de hábitos saludables, que incluye una alimentación balanceada, ejercicio regular, dormir lo suficiente, evitar fumar y acudir periódicamente al médico. Los suplementos, por sí solos, no corrigen estilos de vida poco saludables. Su papel es complementar, no sustituir, y su beneficio es mayor cuando se integran dentro de un estilo de vida que favorece el bienestar general.",
+      references:
+        "Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.",
+    },
+    {
+      question:
+        "La suplementación con Dayamineral también está indicada en situaciones que requieren mayores aportes de vitaminas y minerales",
+      correct: "REALIDAD",
+      message:
+        "Algunas situaciones, como la actividad física intensa, el estrés y los estados de convalecencia, entre otras, aumentan las necesidades del organismo de vitaminas y minerales para funcionar correctamente y mantener la salud.",
+      references:
+        "Monografía Dayamineral Jarabe. Junio 2019. | Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
+    },
+  ];
+
+  const wrapper = document.getElementById("quiz-wrapper");
+  const quizCard = document.getElementById("quiz-card");
+  const finishCard = document.getElementById("quiz-finish");
+  const counter = document.getElementById("quiz-counter");
+  const questionText = document.getElementById("quiz-question");
+  const answerButtons = document.querySelectorAll(".quiz-answer");
+  const modal = document.getElementById("quiz-modal");
+  const modalIcon = document.getElementById("modal-icon");
+  const modalTitle = document.getElementById("modal-title");
+  const modalMessage = document.getElementById("modal-message");
+  const modalReferences = document.getElementById("modal-references");
+  const modalReferenceText = document.getElementById("modal-reference-text");
+  const modalNext = document.getElementById("modal-next");
+  const restartButton = document.getElementById("quiz-restart");
+  let currentQuestion = 0;
+
+  const setBackground = (index) => {
+    const backgroundNumber = String(index + 1).padStart(2, "0");
+    wrapper.style.backgroundImage = `url(${URL_BASE}/backgrounds/bg_${backgroundNumber}.webp)`;
+  };
+
+  const renderQuestion = () => {
+    const question = questions[currentQuestion];
+    counter.textContent = `${currentQuestion + 1}.`;
+    questionText.textContent = question.question;
+    modalNext.textContent = currentQuestion === questions.length - 1 ? "FINALIZAR" : "SIGUIENTE";
+    setBackground(currentQuestion);
+  };
+
+  const openModal = (selectedAnswer) => {
+    const question = questions[currentQuestion];
+    const isCorrect = selectedAnswer === question.correct;
+
+    modalTitle.textContent = isCorrect
+      ? "¡Correcto!"
+      : question.correct === "MITO"
+        ? "¡UPS, ESTO ES UN MITO!"
+        : "¡UPS, ESTO ES UNA REALIDAD!";
+    modalIcon.src = isCorrect
+      ? `${URL_BASE}/iconos/check.webp`
+      : `${URL_BASE}/iconos/rayo.webp`;
+    modalMessage.textContent = question.message;
+    modalReferenceText.textContent = question.references;
+    modalReferences.open = false;
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    modalNext.focus();
+  };
+
+  const closeModal = () => {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  };
+
+  const showFinish = () => {
+    quizCard.classList.add("hidden");
+    finishCard.classList.remove("hidden");
+    setBackground(questions.length - 1);
+  };
+
+  answerButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      openModal(button.dataset.answer);
+    });
+  });
+
+  modalNext.addEventListener("click", () => {
+    closeModal();
+
+    if (currentQuestion === questions.length - 1) {
+      showFinish();
+      return;
+    }
+
+    currentQuestion += 1;
+    renderQuestion();
+  });
+
+  restartButton.addEventListener("click", () => {
+    currentQuestion = 0;
+    finishCard.classList.add("hidden");
+    quizCard.classList.remove("hidden");
+    renderQuestion();
+  });
+
+  renderQuestion();
+</script>
