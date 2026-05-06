@@ -7,7 +7,7 @@ import Layout from "@/layouts/Layout.astro";
 <Layout>
   <div
     id="quiz-wrapper"
-    class="min-h-screen flex flex-col bg-cover bg-position-[center_top] transition-[background-image] duration-300 md:bg-center lg:bg-[center_center]"
+    class="min-h-screen flex flex-col bg-cover bg-position-[center_top] transition-[background-image] duration-300 md:bg-center lg:bg-position-[center_center]"
     style={`background-image: url(${URL_BASE}/backgrounds/bg_01.webp);`}
   >
     <Header />
@@ -16,7 +16,7 @@ import Layout from "@/layouts/Layout.astro";
     >
       <section
         id="quiz-card"
-        class="w-full rounded-4xl bg-white/80 p-5 text-black shadow-2xl backdrop-blur-sm sm:p-7 md:max-w-xl lg:mr-[5vw] lg:w-[47%] lg:max-w-[560px] lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0"
+        class="w-full rounded-4xl bg-white/80 p-5 text-black shadow-2xl backdrop-blur-sm sm:p-7 md:max-w-xl lg:mr-[5vw] lg:w-[47%] lg:max-w-140 lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-0"
         aria-live="polite"
       >
         <div class="sr-only">
@@ -52,7 +52,7 @@ import Layout from "@/layouts/Layout.astro";
           </h1>
         </div>
 
-        <div class="mt-8 flex w-full max-w-[430px] flex-col gap-4 md:mt-10">
+        <div class="mt-8 flex w-full max-w-107.5 flex-col gap-4 md:mt-10">
           <button
             type="button"
             class="quiz-answer flex items-center gap-4 rounded-full bg-[#c62579] bg-cover bg-center px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(65,20,76,0.26)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(65,20,76,0.32)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:px-8 md:py-5 md:text-5xl"
@@ -85,7 +85,7 @@ import Layout from "@/layouts/Layout.astro";
 
       <section
         id="quiz-finish"
-        class="hidden w-full rounded-[2rem] bg-white/84 p-6 text-center text-black shadow-2xl backdrop-blur-sm md:max-w-xl md:p-8 lg:mr-[5vw] lg:w-[47%] lg:max-w-[560px]"
+        class="hidden w-full rounded-4xl bg-white/84 p-6 text-center text-black shadow-2xl backdrop-blur-sm md:max-w-xl md:p-8 lg:mr-[5vw] lg:w-[47%] lg:max-w-140"
         aria-live="polite"
       >
         <img
@@ -120,7 +120,7 @@ import Layout from "@/layouts/Layout.astro";
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      <article class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-[2rem] bg-white p-6 text-black shadow-2xl md:p-8">
+      <article class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-4xl bg-white p-6 text-black shadow-2xl md:p-8">
         <div class="mb-4 flex items-start gap-3">
           <img
             id="modal-icon"
