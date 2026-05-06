@@ -61,7 +61,35 @@ import Layout from "@/layouts/Layout.astro";
           Mito o realidad
         </p>
 
-        <div id="quiz-question-copy" class="flex items-start gap-3 text-black md:gap-4">
+        <div class="mb-5 flex w-full lg:w-[90%] items-center gap-3 md:mb-6">
+          <div
+            class="h-2.5 flex-1 overflow-hidden rounded-full bg-white/60 shadow-inner"
+            role="progressbar"
+            aria-label="Progreso del quiz"
+            aria-valuemin="1"
+            aria-valuemax="6"
+            aria-valuenow="1"
+            id="quiz-progress"
+          >
+            <div
+              id="quiz-progress-bar"
+              class="h-full rounded-full bg-linear-to-r from-[#c62579] to-[#f4bd18] transition-[width] duration-300"
+              style="width: 16.6667%;"
+            ></div>
+          </div>
+          <button
+            id="quiz-reset"
+            type="button"
+            class="shrink-0 rounded-full border border-current px-3 py-1 text-xs font-black uppercase tracking-wide transition hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+          >
+            Reset
+          </button>
+        </div>
+
+        <div
+          id="quiz-question-copy"
+          class="flex items-start gap-3 rounded-3xl bg-(--question-copy-bg) p-4 text-black md:gap-4 md:bg-transparent md:p-0"
+        >
           <p
             id="quiz-counter"
             class="shrink-0 text-[clamp(1.7rem,2.5vw,2.75rem)] font-black leading-[1.04]"
@@ -169,6 +197,12 @@ import Layout from "@/layouts/Layout.astro";
   }
 
 </style>
+
+<script>
+  import confetti from "canvas-confetti";
+
+  window.quizConfetti = confetti;
+</script>
 
 <script is:inline define:vars={{ URL_BASE }}>
   const questions = [
@@ -280,6 +314,9 @@ import Layout from "@/layouts/Layout.astro";
   const headerCode = document.getElementById("quiz-header-code");
   const quizCard = document.getElementById("quiz-card");
   const finishCard = document.getElementById("quiz-finish");
+  const progress = document.getElementById("quiz-progress");
+  const progressBar = document.getElementById("quiz-progress-bar");
+  const resetButton = document.getElementById("quiz-reset");
   const questionCopy = document.getElementById("quiz-question-copy");
   const counter = document.getElementById("quiz-counter");
   const questionText = document.getElementById("quiz-question");
@@ -294,6 +331,9 @@ import Layout from "@/layouts/Layout.astro";
   const modalNext = document.getElementById("modal-next");
   const restartButton = document.getElementById("quiz-restart");
   let currentQuestion = 0;
+  let correctAnswers = 0;
+  let questionAnswered = false;
+  let confettiTimer;
 
   const setBackground = (index) => {
     const backgroundNumber = String(index + 1).padStart(2, "0");
@@ -309,11 +349,18 @@ import Layout from "@/layouts/Layout.astro";
 
   const renderQuestion = () => {
     const question = questions[currentQuestion];
+    questionAnswered = false;
+    const progressValue = currentQuestion + 1;
+    progress.setAttribute("aria-valuemax", String(questions.length));
+    progress.setAttribute("aria-valuenow", String(progressValue));
+    progressBar.style.width = `${(progressValue / questions.length) * 100}%`;
     counter.textContent = `${currentQuestion + 1}.`;
     questionText.innerHTML = question.questionHtml;
     questionCopy.style.color = question.textColor;
+    questionCopy.style.setProperty("--question-copy-bg", question.logoVariant === "light" ? "#111827" : "#ffffff");
     counter.style.color = question.textColor;
     questionText.style.color = question.textColor;
+    resetButton.style.color = question.textColor;
     footer.style.color = question.textColor;
     footerReferences.innerHTML = question.referencesHtml;
     footer.classList.remove("hidden");
@@ -344,9 +391,70 @@ import Layout from "@/layouts/Layout.astro";
     setBackground(currentQuestion);
   };
 
+  const launchSideConfetti = () => {
+    const confetti = window.quizConfetti;
+
+    if (!confetti) return;
+
+    confetti({
+      particleCount: 70,
+      spread: 55,
+      angle: 60,
+      origin: { x: 0, y: 0.55 },
+      colors: ["#c62579", "#f4bd18", "#ffffff"],
+    });
+    confetti({
+      particleCount: 70,
+      spread: 55,
+      angle: 120,
+      origin: { x: 1, y: 0.55 },
+      colors: ["#c62579", "#f4bd18", "#ffffff"],
+    });
+  };
+
+  const launchPerfectFinishConfetti = () => {
+    const confetti = window.quizConfetti;
+
+    if (!confetti) return;
+
+    const end = Date.now() + 5000;
+    clearInterval(confettiTimer);
+    confettiTimer = setInterval(() => {
+      confetti({
+        particleCount: 55,
+        spread: 360,
+        startVelocity: 32,
+        origin: { x: Math.random(), y: Math.random() * 0.55 },
+        colors: ["#c62579", "#f4bd18", "#ffffff"],
+      });
+
+      if (Date.now() > end) {
+        clearInterval(confettiTimer);
+      }
+    }, 250);
+  };
+
+  const resetQuiz = () => {
+    clearInterval(confettiTimer);
+    currentQuestion = 0;
+    correctAnswers = 0;
+    closeModal();
+    finishCard.classList.add("hidden");
+    quizCard.classList.remove("hidden");
+    renderQuestion();
+  };
+
   const openModal = (selectedAnswer) => {
+    if (questionAnswered) return;
+
+    questionAnswered = true;
     const question = questions[currentQuestion];
     const isCorrect = selectedAnswer === question.correct;
+
+    if (isCorrect) {
+      correctAnswers += 1;
+      launchSideConfetti();
+    }
 
     modalTitle.textContent = isCorrect
       ? "¡Correcto!"
@@ -378,6 +486,10 @@ import Layout from "@/layouts/Layout.astro";
     finishCard.classList.remove("hidden");
     setHeaderLogos(questions[questions.length - 1].logoVariant);
     setBackground(questions.length - 1);
+
+    if (correctAnswers === questions.length) {
+      launchPerfectFinishConfetti();
+    }
   };
 
   modalNext.addEventListener("click", () => {
@@ -392,12 +504,8 @@ import Layout from "@/layouts/Layout.astro";
     renderQuestion();
   });
 
-  restartButton.addEventListener("click", () => {
-    currentQuestion = 0;
-    finishCard.classList.add("hidden");
-    quizCard.classList.remove("hidden");
-    renderQuestion();
-  });
+  resetButton.addEventListener("click", resetQuiz);
+  restartButton.addEventListener("click", resetQuiz);
 
   renderQuestion();
 </script>
