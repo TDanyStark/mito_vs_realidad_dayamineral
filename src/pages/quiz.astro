@@ -1,5 +1,4 @@
 ---
-import Header from "@/components/Header.astro";
 import { URL_BASE } from "@/config";
 import Layout from "@/layouts/Layout.astro";
 ---
@@ -10,7 +9,32 @@ import Layout from "@/layouts/Layout.astro";
     class="min-h-screen flex flex-col bg-cover bg-position-[center_top] transition-[background-image] duration-300 md:bg-center lg:bg-position-[center_center]"
     style={`background-image: url(${URL_BASE}/backgrounds/bg_01.webp);`}
   >
-    <Header />
+    <header class="w-7xl relative mx-auto max-w-full p-4 md:p-6">
+      <div class="flex justify-between">
+        <div>
+          <a href={URL_BASE}>
+            <img
+              id="quiz-abbott-logo"
+              class="w-32"
+              src={`${URL_BASE}/logos/abbott_black.webp`}
+              alt="Logo Abbott"
+            />
+          </a>
+        </div>
+        <div>
+          <img
+            id="quiz-dayamineral-logo"
+            class="w-44"
+            src={`${URL_BASE}/logos/logo_dayamineral_color.webp`}
+            alt="Logo Dayamineral"
+          />
+        </div>
+      </div>
+
+      <div class="absolute top-16 -right-2 -rotate-90 transform lg:-right-8 xl:-right-12">
+        <span id="quiz-header-code" class="text-sm text-black"></span>
+      </div>
+    </header>
     <main
       class="mx-auto flex w-full max-w-7xl flex-1 justify-end p-4"
     >
@@ -46,42 +70,13 @@ import Layout from "@/layouts/Layout.astro";
           </p>
           <h1
             id="quiz-question"
-            class="min-h-36 text-balance text-[clamp(1.7rem,2.5vw,2.75rem)] font-extrabold leading-[1.04] md:min-h-48"
+            class="min-h-36 text-balance text-[clamp(1.7rem,2.5vw,2.75rem)] font-normal leading-[1.04] md:min-h-48 [&_strong]:font-black"
           >
-            Las personas que tienen una dieta saludable no necesitan un suplemento con vitaminas y minerales como Dayamineral
+            Las personas que tienen una dieta saludable no necesitan un suplemento con vitaminas y minerales como <strong>Dayamineral</strong>
           </h1>
         </div>
 
-        <div class="mt-8 flex w-full max-w-107.5 flex-col gap-4 md:mt-10">
-          <button
-            type="button"
-            class="quiz-answer flex items-center gap-4 rounded-full bg-[#c62579] bg-cover bg-center px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(65,20,76,0.26)] transition hover:-translate-y-0.5 hover:bg-[#f4bd18] hover:shadow-[0_16px_28px_rgba(117,84,0,0.28)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:px-8 md:py-5 md:text-5xl"
-            style={`--answer-gradient: url(${URL_BASE}/bg_btn_01.webp);`}
-            data-answer="MITO"
-          >
-            <img
-              src={`${URL_BASE}/iconos/rayo.webp`}
-              alt=""
-              class="h-10 w-10 shrink-0 md:h-12 md:w-12"
-              aria-hidden="true"
-            />
-            <span>MITO</span>
-          </button>
-          <button
-            type="button"
-            class="quiz-answer flex items-center gap-4 rounded-full bg-[#c62579] bg-cover bg-center px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(65,20,76,0.26)] transition hover:-translate-y-0.5 hover:bg-[#f4bd18] hover:shadow-[0_16px_28px_rgba(117,84,0,0.28)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:px-8 md:py-5 md:text-5xl"
-            style={`--answer-gradient: url(${URL_BASE}/bg_btn_01.webp);`}
-            data-answer="REALIDAD"
-          >
-            <img
-              src={`${URL_BASE}/iconos/check.webp`}
-              alt=""
-              class="h-10 w-10 shrink-0 md:h-12 md:w-12"
-              aria-hidden="true"
-            />
-            <span>REALIDAD</span>
-          </button>
-        </div>
+        <div id="quiz-answers" class="mt-8 flex w-full max-w-107.5 flex-col gap-4 md:mt-10"></div>
       </section>
 
       <section
@@ -116,10 +111,11 @@ import Layout from "@/layouts/Layout.astro";
 
     <footer
       id="quiz-footer"
-      class="mx-auto w-full max-w-7xl px-4 pb-4 text-xs font-semibold leading-relaxed text-black/80 transition-colors md:text-sm"
+      class="mx-auto flex w-full max-w-7xl px-4 pb-4 text-[0.625rem] font-normal leading-snug text-black/80 transition-colors sm:text-xs lg:justify-end"
     >
-      <p class="font-black uppercase tracking-wide">Referencias</p>
-      <p id="quiz-footer-references" class="mt-1"></p>
+      <div class="w-full lg:mr-[5vw] lg:w-[47%] lg:max-w-140">
+        <div id="quiz-footer-references"></div>
+      </div>
     </footer>
 
     <div
@@ -129,7 +125,10 @@ import Layout from "@/layouts/Layout.astro";
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      <article class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-4xl bg-white p-6 text-black shadow-2xl md:p-8">
+      <article
+        id="modal-card"
+        class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-4xl bg-white p-6 text-white shadow-2xl md:p-8"
+      >
         <div class="mb-4 flex items-start gap-3">
           <img
             id="modal-icon"
@@ -143,10 +142,6 @@ import Layout from "@/layouts/Layout.astro";
           </h2>
         </div>
         <p id="modal-message" class="text-base font-semibold leading-relaxed md:text-lg"></p>
-        <details id="modal-references" class="mt-5 text-xs leading-relaxed text-black/70 md:text-sm">
-          <summary class="cursor-pointer font-black uppercase tracking-wide">Referencias</summary>
-          <p id="modal-reference-text" class="mt-2"></p>
-        </details>
         <button
           id="modal-next"
           type="button"
@@ -160,94 +155,150 @@ import Layout from "@/layouts/Layout.astro";
 </Layout>
 
 <style>
-  .quiz-answer {
+  :global(.quiz-answer) {
+    background-color: #c62579;
     background-image: var(--answer-gradient);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
-  .quiz-answer:hover {
+  :global(.quiz-answer:hover) {
     background-color: #f4bd18;
     background-image: none;
   }
+
+  :global(#quiz-footer-references ol) {
+    list-style-position: outside;
+    margin-left: 1rem;
+  }
+
+  :global(#quiz-footer-references li::marker) {
+    font-weight: 900;
+  }
 </style>
 
-<script define:vars={{ URL_BASE }}>
+<script is:inline define:vars={{ URL_BASE }}>
   const questions = [
     {
-      question:
-        "Las personas que tienen una dieta saludable no necesitan un suplemento con vitaminas y minerales como Dayamineral",
+      questionHtml:
+        "Las personas que tienen una dieta saludable no necesitan un suplemento con vitaminas y minerales como <strong>Dayamineral</strong>",
+      options: [
+        { label: "MITO" },
+        { label: "REALIDAD" },
+      ],
       correct: "MITO",
       message:
         "La realidad es que la mayoría de las personas, incluso si tienen una dieta variada y saludable, no ingieren la cantidad diaria necesaria de nutrientes esenciales. En parte, esto se debe a que actualmente muchos de los alimentos que consumimos son menos ricos en nutrientes que hace décadas, de modo que es muy probable que la dieta no alcance a cubrir todas las necesidades que el cuerpo necesita.",
-      references:
-        "Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15. | Monografía Dayamineral Jarabe. Junio 2019. | Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
+      referencesHtml:
+        "<p class='font-black uppercase tracking-wide'>Referencias:</p><ol class='mt-1 space-y-1'><li>Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.</li><li>Monografía Dayamineral Jarabe. Junio 2019.</li><li>Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.</li></ol>",
       textColor: "#111827",
+      logoVariant: "dark",
     },
     {
-      question: "Las carencias nutricionales no son realmente importantes",
+      questionHtml: "Las carencias nutricionales no son realmente importantes",
+      options: [
+        { label: "MITO" },
+        { label: "REALIDAD" },
+      ],
       correct: "MITO",
       message:
         "Es todo lo contrario, ya que las vitaminas y minerales influyen directamente en la salud a largo plazo, por lo que es muy importante mantener unos niveles adecuados. Por ejemplo, los niveles óptimos de vitaminas, como la D, se asocian con una mejor función inmunitaria. Asimismo, las personas que consumen multivitamínicos presentan un menor deterioro cognitivo a medida que envejecen.",
-      references:
-        "Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.",
+      referencesHtml:
+        "<p class='font-black uppercase tracking-wide'>Referencia:</p><p class='mt-1'>Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.</p>",
       textColor: "#ffffff",
+      logoVariant: "light",
     },
     {
-      question:
-        "Un suplemento multivitamínico de calidad, como Dayamineral, ayuda a las personas a tener un buen desempeño físico y mental",
+      questionHtml:
+        "Un suplemento multivitamínico de calidad, como <strong>Dayamineral</strong>, ayuda a las personas a tener un buen desempeño físico y mental",
+      options: [
+        { label: "MITO" },
+        { label: "REALIDAD" },
+      ],
       correct: "REALIDAD",
       message:
         "Dado que Dayamineral ayuda a obtener las cantidades necesarias de nutrientes que no son cubiertas con la alimentación, las personas que lo consumen obtienen un aumento de la energía, así como una mejora del metabolismo, el sistema inmune y la función cognitiva.",
-      references:
-        "Office of Dietary Supplements. Multivitamin/mineral supplements: fact sheet for health professionals [Internet]. Bethesda (MD): National Institutes of Health. Disponible en: https://n9.cl/tjvn01 | Garg V, Lin J, Gadzhieva-Moore A, et al. The role of multivitamin and mineral supplements in supporting health and well-being: a retrospective cross-sectional study in Taiwan. J Health Popul Nutr. 2025;44(1):423.",
+      referencesHtml:
+        "<p class='font-black uppercase tracking-wide'>Referencias:</p><ol class='mt-1 space-y-1'><li>Office of Dietary Supplements. Multivitamin/mineral supplements: fact sheet for health professionals [Internet]. Bethesda (MD): National Institutes of Health. Disponible en: https://n9.cl/tjvn01</li><li>Garg V, Lin J, Gadzhieva-Moore A, et al. The role of multivitamin and mineral supplements in supporting health and well-being: a retrospective cross-sectional study in Taiwan. J Health Popul Nutr. 2025;44(1):423.</li></ol>",
       textColor: "#111827",
+      logoVariant: "dark",
     },
     {
-      question:
-        "Los suplementos multivitamínicos y minerales, como Dayamineral, no han demostrado ser seguros",
+      questionHtml:
+        "Los suplementos multivitamínicos y minerales, como <strong>Dayamineral</strong>, no han demostrado ser seguros",
+      options: [
+        { label: "MITO" },
+        { label: "REALIDAD" },
+      ],
       correct: "MITO",
       message:
         "Al ser un producto que influye en la salud humana, los suplementos multivitamínicos y minerales deben contar con el aval de la autoridad sanitaria técnica y científica del país donde se comercializa, lo que garantiza su calidad y seguridad. Por ello, es importante elegir productos de marcas de confianza, reconocidas por sus altos estándares de calidad, como es el caso de Dayamineral, que cuenta con el respaldo Abbott. Además, los casos reales de efectos negativos para la salud derivados de una ingesta excesiva de suplementos son poco frecuentes.",
-      references:
-        "Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15. | Monografía Dayamineral Jarabe. Junio 2019. | Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
+      referencesHtml:
+        "<p class='font-black uppercase tracking-wide'>Referencias:</p><ol class='mt-1 space-y-1'><li>Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.</li><li>Monografía Dayamineral Jarabe. Junio 2019.</li><li>Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.</li></ol>",
       textColor: "#ffffff",
+      logoVariant: "light",
     },
     {
-      question:
+      questionHtml:
         "Los suplementos multivitamínicos y minerales son todo lo que necesitan las personas para mantenerse saludables",
+      options: [
+        { label: "MITO" },
+        { label: "REALIDAD" },
+      ],
       correct: "MITO",
       message:
         "El consumo de suplementos multivitamínicos y minerales forma parte de un conjunto de hábitos saludables, que incluye una alimentación balanceada, ejercicio regular, dormir lo suficiente, evitar fumar y acudir periódicamente al médico. Los suplementos, por sí solos, no corrigen estilos de vida poco saludables. Su papel es complementar, no sustituir, y su beneficio es mayor cuando se integran dentro de un estilo de vida que favorece el bienestar general.",
-      references:
-        "Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.",
+      referencesHtml:
+        "<p class='font-black uppercase tracking-wide'>Referencia:</p><p class='mt-1'>Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.</p>",
       textColor: "#111827",
+      logoVariant: "dark",
     },
     {
-      question:
-        "La suplementación con Dayamineral también está indicada en situaciones que requieren mayores aportes de vitaminas y minerales",
+      questionHtml:
+        "La suplementación con <strong>Dayamineral</strong> también está indicada en situaciones que requieren mayores aportes de vitaminas y minerales",
+      options: [
+        { label: "MITO" },
+        { label: "REALIDAD" },
+      ],
       correct: "REALIDAD",
       message:
         "Algunas situaciones, como la actividad física intensa, el estrés y los estados de convalecencia, entre otras, aumentan las necesidades del organismo de vitaminas y minerales para funcionar correctamente y mantener la salud.",
-      references:
-        "Monografía Dayamineral Jarabe. Junio 2019. | Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
+      referencesHtml:
+        "<p class='font-black uppercase tracking-wide'>Referencias:</p><ol class='mt-1 space-y-1'><li>Monografía Dayamineral Jarabe. Junio 2019.</li><li>Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.</li></ol>",
       textColor: "#111827",
+      logoVariant: "dark",
     },
   ];
 
+  const logoVariants = {
+    light: {
+      abbott: `${URL_BASE}/logos/abbott_white.webp`,
+      dayamineral: `${URL_BASE}/logos/logo_dayamineral_white.webp`,
+    },
+    dark: {
+      abbott: `${URL_BASE}/logos/abbott_black.webp`,
+      dayamineral: `${URL_BASE}/logos/logo_dayamineral_color.webp`,
+    },
+  };
+
   const wrapper = document.getElementById("quiz-wrapper");
+  const abbottLogo = document.getElementById("quiz-abbott-logo");
+  const dayamineralLogo = document.getElementById("quiz-dayamineral-logo");
+  const headerCode = document.getElementById("quiz-header-code");
   const quizCard = document.getElementById("quiz-card");
   const finishCard = document.getElementById("quiz-finish");
   const questionCopy = document.getElementById("quiz-question-copy");
   const counter = document.getElementById("quiz-counter");
   const questionText = document.getElementById("quiz-question");
+  const answersContainer = document.getElementById("quiz-answers");
   const footer = document.getElementById("quiz-footer");
   const footerReferences = document.getElementById("quiz-footer-references");
-  const answerButtons = document.querySelectorAll(".quiz-answer");
   const modal = document.getElementById("quiz-modal");
+  const modalCard = document.getElementById("modal-card");
   const modalIcon = document.getElementById("modal-icon");
   const modalTitle = document.getElementById("modal-title");
   const modalMessage = document.getElementById("modal-message");
-  const modalReferences = document.getElementById("modal-references");
-  const modalReferenceText = document.getElementById("modal-reference-text");
   const modalNext = document.getElementById("modal-next");
   const restartButton = document.getElementById("quiz-restart");
   let currentQuestion = 0;
@@ -257,17 +308,47 @@ import Layout from "@/layouts/Layout.astro";
     wrapper.style.backgroundImage = `url(${URL_BASE}/backgrounds/bg_${backgroundNumber}.webp)`;
   };
 
+  const setHeaderLogos = (logoVariant) => {
+    const logos = logoVariants[logoVariant];
+    abbottLogo.src = logos.abbott;
+    dayamineralLogo.src = logos.dayamineral;
+    headerCode.style.color = logoVariant === "light" ? "#ffffff" : "#111827";
+  };
+
   const renderQuestion = () => {
     const question = questions[currentQuestion];
     counter.textContent = `${currentQuestion + 1}.`;
-    questionText.textContent = question.question;
+    questionText.innerHTML = question.questionHtml;
     questionCopy.style.color = question.textColor;
     counter.style.color = question.textColor;
     questionText.style.color = question.textColor;
     footer.style.color = question.textColor;
-    footerReferences.textContent = question.references;
+    footerReferences.innerHTML = question.referencesHtml;
     footer.classList.remove("hidden");
+    setHeaderLogos(question.logoVariant);
     modalNext.textContent = currentQuestion === questions.length - 1 ? "FINALIZAR" : "SIGUIENTE";
+    answersContainer.replaceChildren(
+      ...question.options.map((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className =
+          "quiz-answer flex items-center gap-4 rounded-full px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(65,20,76,0.26)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(117,84,0,0.28)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:gap-5 md:px-8 md:py-5 md:text-5xl bg-cover bg-center";
+        button.style.setProperty("--answer-gradient", `url(${URL_BASE}/bg_btn_01.webp)`);
+        button.dataset.answer = option.label;
+        const icon = document.createElement("img");
+        icon.src = option.label === "MITO" ? `${URL_BASE}/iconos/rayo.webp` : `${URL_BASE}/iconos/check.webp`;
+        icon.alt = "";
+        icon.className = "h-9 w-9 shrink-0 md:h-11 md:w-11";
+        icon.setAttribute("aria-hidden", "true");
+        const label = document.createElement("span");
+        label.textContent = option.label;
+        button.append(icon, label);
+        button.addEventListener("click", () => {
+          openModal(option.label);
+        });
+        return button;
+      }),
+    );
     setBackground(currentQuestion);
   };
 
@@ -284,8 +365,11 @@ import Layout from "@/layouts/Layout.astro";
       ? `${URL_BASE}/iconos/check.webp`
       : `${URL_BASE}/iconos/rayo.webp`;
     modalMessage.textContent = question.message;
-    modalReferenceText.textContent = question.references;
-    modalReferences.open = false;
+    modalCard.style.backgroundImage = `url(${URL_BASE}/${isCorrect ? "bg_btn_01.webp" : "bg_div.webp"})`;
+    modalCard.style.backgroundSize = "cover";
+    modalCard.style.backgroundPosition = "center";
+    modalCard.style.backgroundRepeat = "no-repeat";
+    modalCard.style.color = "#ffffff";
     modal.classList.remove("hidden");
     modal.classList.add("flex");
     modalNext.focus();
@@ -300,14 +384,9 @@ import Layout from "@/layouts/Layout.astro";
     quizCard.classList.add("hidden");
     footer.classList.add("hidden");
     finishCard.classList.remove("hidden");
+    setHeaderLogos(questions[questions.length - 1].logoVariant);
     setBackground(questions.length - 1);
   };
-
-  answerButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      openModal(button.dataset.answer);
-    });
-  });
 
   modalNext.addEventListener("click", () => {
     closeModal();
