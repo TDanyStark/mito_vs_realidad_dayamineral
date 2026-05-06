@@ -1,11 +1,49 @@
 ---
-import Header from '@/components/Header.astro';
-import { URL_BASE } from '@/config';
-import Layout from '@/layouts/Layout.astro';
+import Header from "@/components/Header.astro";
+import { URL_BASE } from "@/config";
+import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout>
-	<div class="min-h-screen flex flex-col" style={`background-image: url(${URL_BASE}/backgrounds/bg_home.webp); background-size: cover; background-position: center;`}>
-		<Header/>
-	</div>
+  <div
+    class="min-h-screen flex flex-col bg-right lg:bg-center lg:bg-cover"
+    style={`background-image: url(${URL_BASE}/backgrounds/bg_home.webp);`}
+  >
+    <Header />
+    <main
+      class="w-7xl mx-auto max-w-full p-4 md:p-6 flex-1 flex justify-end h-full items-center"
+    >
+      <div class="w-full lg:w-1/2 h-full">
+        <h1 class="text-6xl md:text-8xl font-bold text-white mb-2">
+          MITO VS
+          <span class="block text-amarillo-abbott" style="font-size:1.2em;"
+            >REALIDAD</span
+          >
+        </h1>
+        <h2
+          class="text-xl xs:text-2xl lg:text-4xl text-white bg-center bg-cover px-8 py-4 rounded-full font-bold inline-block"
+          style={`background-image: url(${URL_BASE}/bg_btn_01.webp);`}
+        >
+          DEL MUNDO DAYAMINERAL
+        </h2>
+        <p class="mt-8 text-2xl xs:text-3xl lg:text-4xl text-white">
+          Ponga a prueba su conocimiento sobre el mundo de las vitaminas y los
+          minerales, identificando los <strong>mitos y las verdades.</strong>
+        </p>
+        <div class="mt-16 flex justify-end">
+          <a
+            class="text-3xl lg:text-4xl text-white font-bold py-3 px-6 border border-white rounded-full flex items-center bg-white/20"
+						href={`${URL_BASE}/quiz`}
+          >
+            COMENZAR
+            <img
+              class="w-auto h-10 ml-4"
+              src={`${URL_BASE}/iconos/arrow.webp`}
+              alt="Arrow Right"
+            />
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
 </Layout>

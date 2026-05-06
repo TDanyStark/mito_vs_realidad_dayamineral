@@ -29,4 +29,6 @@
 
   --font-brandon: "Brandon", sans-serif;
   --font-georgia: Georgia, serif;
+
+  --breakpoint-xs: 26rem;
 }
