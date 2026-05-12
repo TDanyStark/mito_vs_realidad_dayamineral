@@ -78,6 +78,23 @@ import Layout from "@/layouts/Layout.astro";
             ></div>
           </div>
           <button
+            id="quiz-mute"
+            type="button"
+            aria-label="Silenciar sonido"
+            class="shrink-0 rounded-full border border-current p-1.5 transition hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+          >
+            <svg id="quiz-mute-icon-on" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+            <svg id="quiz-mute-icon-off" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/>
+              <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+          </button>
+          <button
             id="quiz-reset"
             type="button"
             class="shrink-0 rounded-full border border-current px-3 py-1 text-xs font-black uppercase tracking-wide transition hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
@@ -323,6 +340,9 @@ import Layout from "@/layouts/Layout.astro";
   const progress = document.getElementById("quiz-progress");
   const progressBar = document.getElementById("quiz-progress-bar");
   const resetButton = document.getElementById("quiz-reset");
+  const muteButton = document.getElementById("quiz-mute");
+  const muteIconOn = document.getElementById("quiz-mute-icon-on");
+  const muteIconOff = document.getElementById("quiz-mute-icon-off");
   const questionCopy = document.getElementById("quiz-question-copy");
   const counter = document.getElementById("quiz-counter");
   const questionText = document.getElementById("quiz-question");
@@ -342,6 +362,16 @@ import Layout from "@/layouts/Layout.astro";
   let correctAnswers = 0;
   let questionAnswered = false;
   let confettiTimer;
+  let isMuted = false;
+
+  const failSound = new Audio(`${URL_BASE}/sounds/fail.mp3`);
+  const confettiSound = new Audio(`${URL_BASE}/sounds/confetti.mp3`);
+
+  const playSound = (audio) => {
+    if (isMuted) return;
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  };
 
   const setBackground = (index) => {
     const backgroundNumber = String(index + 1).padStart(2, "0");
@@ -369,6 +399,7 @@ import Layout from "@/layouts/Layout.astro";
     counter.style.color = question.textColor;
     questionText.style.color = question.textColor;
     resetButton.style.color = question.textColor;
+    muteButton.style.color = question.textColor;
     footer.style.color = question.textColor;
     footerReferences.innerHTML = question.referencesHtml;
     footer.classList.remove("hidden");
@@ -436,6 +467,12 @@ import Layout from "@/layouts/Layout.astro";
         colors: ["#c62579", "#f4bd18", "#ffffff"],
       });
 
+      if (!isMuted) {
+        const burst = confettiSound.cloneNode();
+        burst.volume = 0.5;
+        burst.play().catch(() => {});
+      }
+
       if (Date.now() > end) {
         clearInterval(confettiTimer);
       }
@@ -462,6 +499,9 @@ import Layout from "@/layouts/Layout.astro";
     if (isCorrect) {
       correctAnswers += 1;
       launchSideConfetti();
+      playSound(confettiSound);
+    } else {
+      playSound(failSound);
     }
 
     modalTitle.textContent = isCorrect
@@ -516,6 +556,13 @@ import Layout from "@/layouts/Layout.astro";
 
   resetButton.addEventListener("click", resetQuiz);
   restartButton.addEventListener("click", resetQuiz);
+
+  muteButton.addEventListener("click", () => {
+    isMuted = !isMuted;
+    muteIconOn.classList.toggle("hidden", isMuted);
+    muteIconOff.classList.toggle("hidden", !isMuted);
+    muteButton.setAttribute("aria-label", isMuted ? "Activar sonido" : "Silenciar sonido");
+  });
 
   renderQuestion();
 </script>
