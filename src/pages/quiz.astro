@@ -36,6 +36,7 @@ import Layout from "@/layouts/Layout.astro";
       </div>
     </header>
     <main
+      id="quiz-main"
       class="mx-auto flex w-full max-w-7xl flex-1 justify-end p-4"
     >
       <section
@@ -73,7 +74,7 @@ import Layout from "@/layouts/Layout.astro";
           >
             <div
               id="quiz-progress-bar"
-              class="h-full rounded-full bg-linear-to-r from-[#c62579] to-[#f4bd18] transition-[width] duration-300"
+              class="h-full rounded-full bg-orange-abbott transition-[width] duration-300"
               style="width: 16.6667%;"
             ></div>
           </div>
@@ -99,13 +100,13 @@ import Layout from "@/layouts/Layout.astro";
             type="button"
             class="shrink-0 rounded-full border border-current px-3 py-1 text-xs font-black uppercase tracking-wide transition hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
           >
-            Reset
+            REINICIAR
           </button>
         </div>
 
         <div
           id="quiz-question-copy"
-          class="flex items-start gap-3 rounded-3xl bg-(--question-copy-bg) p-4 text-black md:gap-4 md:bg-transparent md:p-0"
+          class="flex items-start gap-3 rounded-3xl bg-white p-4 text-black md:gap-4 md:bg-transparent md:p-0"
         >
           <p
             id="quiz-counter"
@@ -115,7 +116,7 @@ import Layout from "@/layouts/Layout.astro";
           </p>
           <h1
             id="quiz-question"
-            class="min-h-36 text-balance text-[clamp(1.7rem,2.5vw,2.75rem)] font-normal leading-[1.04] md:min-h-48 [&_strong]:font-black"
+            class="min-h-26 text-balance text-[clamp(1.7rem,2.5vw,2.75rem)] font-normal leading-[1.04] md:min-h-36 [&_strong]:font-black"
           >
             Las personas que tienen una dieta saludable no necesitan un suplemento con vitaminas y minerales como <strong>Dayamineral</strong>
           </h1>
@@ -126,8 +127,7 @@ import Layout from "@/layouts/Layout.astro";
 
       <section
         id="quiz-finish"
-        class="hidden w-full rounded-4xl bg-cover bg-center bg-no-repeat p-6 text-center text-white shadow-2xl md:max-w-xl md:p-8 lg:mr-[5vw] lg:w-[47%] lg:max-w-140"
-        style={`background-image: url(${URL_BASE}/bg_div.webp);`}
+        class="hidden w-full rounded-4xl bg-cover bg-center bg-no-repeat p-6 text-center text-white shadow-2xl md:max-w-xl md:p-8 lg:mr-[5vw] lg:w-[47%] lg:max-w-140 bg-orange-abbott"
         aria-live="polite"
       >
         <img
@@ -153,7 +153,7 @@ import Layout from "@/layouts/Layout.astro";
         <button
           id="quiz-restart"
           type="button"
-          class="mt-8 rounded-full bg-[#f4bd18] px-8 py-4 text-lg font-black uppercase text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white"
+          class="mt-8 rounded-full bg-white px-8 py-4 text-lg font-black uppercase text-orange-abbott shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           Reiniciar
         </button>
@@ -162,10 +162,16 @@ import Layout from "@/layouts/Layout.astro";
 
     <footer
       id="quiz-footer"
-      class="mx-auto flex w-full max-w-7xl px-4 pb-4 text-[0.625rem] font-normal leading-snug text-black/80 transition-colors sm:text-xs lg:justify-end"
+      class="mx-auto flex flex-col lg:flex-row w-full max-w-7xl px-4 pb-4 text-[0.625rem] font-normal leading-snug text-black/80 transition-colors sm:text-xs lg:justify-end gap-10"
     >
       <div class="w-full lg:mr-[5vw] lg:w-[47%] lg:max-w-140">
         <div id="quiz-footer-references"></div>
+      </div>
+
+      <div class="flex flex-col justify-end">
+        <p class="text-white text-xs mt-4" id="quiz-footer-code">
+          USO EXCLUSIVO PARA PROFESIONALES MÉDICOS  <b>CAC-26-0610</b>
+        </p>
       </div>
     </footer>
 
@@ -196,7 +202,7 @@ import Layout from "@/layouts/Layout.astro";
         <button
           id="modal-next"
           type="button"
-          class="mt-7 w-full rounded-full bg-[#f4bd18] px-8 py-4 text-lg font-black uppercase text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#c62579] sm:w-auto"
+          class="mt-7 w-full rounded-full bg-white px-8 py-4 text-lg font-black uppercase shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
         >
           SIGUIENTE
         </button>
@@ -207,15 +213,12 @@ import Layout from "@/layouts/Layout.astro";
 
 <style>
   :global(.quiz-answer) {
-    background-color: #c62579;
-    background-image: var(--answer-gradient);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #b50064;
+    background-image: none;
   }
 
   :global(.quiz-answer:hover) {
-    background-color: #f4bd18;
+    background-color: #e86408;
     background-image: none;
   }
 
@@ -243,6 +246,7 @@ import Layout from "@/layouts/Layout.astro";
         "<strong>Referencias:</strong> <strong>1.</strong> Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15. <strong>2.</strong> Monografía Dayamineral Jarabe. Junio 2019. <strong>3.</strong> Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
       textColor: "#111827",
       logoVariant: "dark",
+      side: "start",
     },
     {
       questionHtml: "Las carencias nutricionales no son realmente importantes",
@@ -257,6 +261,7 @@ import Layout from "@/layouts/Layout.astro";
         "<strong>Referencia:</strong> Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.",
       textColor: "#ffffff",
       logoVariant: "light",
+      side: "end",
     },
     {
       questionHtml:
@@ -272,6 +277,7 @@ import Layout from "@/layouts/Layout.astro";
         "<strong>Referencias:</strong> <strong>1.</strong> Office of Dietary Supplements. Multivitamin/mineral supplements: fact sheet for health professionals [Internet]. Bethesda (MD): National Institutes of Health. Disponible en: https://n9.cl/tjvn01 <strong>2.</strong> Garg V, Lin J, Gadzhieva-Moore A, et al. The role of multivitamin and mineral supplements in supporting health and well-being: a retrospective cross-sectional study in Taiwan. J Health Popul Nutr. 2025;44(1):423.",
       textColor: "#111827",
       logoVariant: "dark",
+      side: "end",
     },
     {
       questionHtml:
@@ -287,6 +293,7 @@ import Layout from "@/layouts/Layout.astro";
         "<strong>Referencias:</strong> <strong>1.</strong> Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15. <strong>2.</strong> Monografía Dayamineral Jarabe. Junio 2019. <strong>3.</strong> Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
       textColor: "#ffffff",
       logoVariant: "light",
+      side: "end",
     },
     {
       questionHtml:
@@ -302,6 +309,7 @@ import Layout from "@/layouts/Layout.astro";
         "<strong>Referencia:</strong> Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.",
       textColor: "#111827",
       logoVariant: "dark",
+      side: "end",
     },
     {
       questionHtml:
@@ -317,6 +325,7 @@ import Layout from "@/layouts/Layout.astro";
         "<strong>Referencias:</strong> <strong>1.</strong> Monografía Dayamineral Jarabe. Junio 2019. <strong>2.</strong> Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
       textColor: "#111827",
       logoVariant: "dark",
+      side: "end",
     },
   ];
 
@@ -349,6 +358,8 @@ import Layout from "@/layouts/Layout.astro";
   const answersContainer = document.getElementById("quiz-answers");
   const footer = document.getElementById("quiz-footer");
   const footerReferences = document.getElementById("quiz-footer-references");
+  const footerCode = document.getElementById("quiz-footer-code");
+  const quizMain = document.getElementById("quiz-main");
   const modal = document.getElementById("quiz-modal");
   const modalCard = document.getElementById("modal-card");
   const modalIcon = document.getElementById("modal-icon");
@@ -378,6 +389,21 @@ import Layout from "@/layouts/Layout.astro";
     wrapper.style.backgroundImage = `url(${URL_BASE}/backgrounds/bg_${backgroundNumber}.webp)`;
   };
 
+  const applySide = (side) => {
+    const toStart = side === "start";
+    // Alterna el lado del contenido en PC (en mobile no aplica)
+    quizMain.classList.toggle("lg:justify-end", !toStart);
+    quizMain.classList.toggle("lg:justify-start", toStart);
+    footer.classList.toggle("lg:justify-end", !toStart);
+    footer.classList.toggle("lg:justify-start", toStart);
+    // Margen lateral de la card para que respire del borde
+    quizCard.classList.toggle("lg:mr-[5vw]", !toStart);
+    quizCard.classList.toggle("lg:ml-[5vw]", toStart);
+    // Margen lateral del bloque de referencias del footer
+    footerReferences.parentElement.classList.toggle("lg:mr-[5vw]", !toStart);
+    footerReferences.parentElement.classList.toggle("lg:ml-[5vw]", toStart);
+  };
+
   const setHeaderLogos = (logoVariant) => {
     const logos = logoVariants[logoVariant];
     abbottLogo.src = logos.abbott;
@@ -401,6 +427,8 @@ import Layout from "@/layouts/Layout.astro";
     resetButton.style.color = question.textColor;
     muteButton.style.color = question.textColor;
     footer.style.color = question.textColor;
+    footerCode.style.color = question.textColor;
+    applySide(question.side);
     footerReferences.innerHTML = question.referencesHtml;
     footer.classList.remove("hidden");
     setHeaderLogos(question.logoVariant);
@@ -410,17 +438,11 @@ import Layout from "@/layouts/Layout.astro";
         const button = document.createElement("button");
         button.type = "button";
         button.className =
-          "quiz-answer flex items-center gap-4 rounded-full px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(65,20,76,0.26)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(117,84,0,0.28)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:gap-5 md:px-8 md:py-5 md:text-5xl bg-cover bg-center";
-        button.style.setProperty("--answer-gradient", `url(${URL_BASE}/bg_btn_01.webp)`);
+          "quiz-answer flex items-center gap-4 rounded-full px-6 py-4 text-left text-4xl font-black uppercase leading-none text-white shadow-[0_12px_22px_rgba(65,20,76,0.26)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_28px_rgba(117,84,0,0.28)] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-white md:gap-5 md:px-8 md:py-5 md:text-5xl";
         button.dataset.answer = option.label;
-        const icon = document.createElement("img");
-        icon.src = option.label === "MITO" ? `${URL_BASE}/iconos/rayo.webp` : `${URL_BASE}/iconos/check.webp`;
-        icon.alt = "";
-        icon.className = "h-auto w-9 shrink-0 md:h-11 md:w-11";
-        icon.setAttribute("aria-hidden", "true");
         const label = document.createElement("span");
         label.textContent = option.label;
-        button.append(icon, label);
+        button.append(label);
         button.addEventListener("click", () => {
           openModal(option.label);
         });
@@ -513,11 +535,11 @@ import Layout from "@/layouts/Layout.astro";
       ? `${URL_BASE}/iconos/check.webp`
       : `${URL_BASE}/iconos/rayo.webp`;
     modalMessage.textContent = question.message;
-    modalCard.style.backgroundImage = `url(${URL_BASE}/${isCorrect ? "bg_btn_01.webp" : "bg_div.webp"})`;
-    modalCard.style.backgroundSize = "cover";
-    modalCard.style.backgroundPosition = "center";
-    modalCard.style.backgroundRepeat = "no-repeat";
+    const modalBgColor = isCorrect ? "#e86408" : "#b50064";
+    modalCard.style.backgroundImage = "none";
+    modalCard.style.backgroundColor = modalBgColor;
     modalCard.style.color = "#ffffff";
+    modalNext.style.color = modalBgColor;
     modal.classList.remove("hidden");
     modal.classList.add("flex");
     modalNext.focus();
