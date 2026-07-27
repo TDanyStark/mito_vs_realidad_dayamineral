@@ -10,7 +10,7 @@ import Layout from "@/layouts/Layout.astro";
     style={`background-image: url(${URL_BASE}/backgrounds/bg_01.webp);`}
   >
     <header class="w-7xl relative mx-auto max-w-full p-4 md:p-6">
-      <div class="flex justify-between">
+      <div class="flex items-end justify-between">
         <div>
           <a href={URL_BASE}>
             <img
@@ -222,6 +222,12 @@ import Layout from "@/layouts/Layout.astro";
     background-image: none;
   }
 
+  @media (max-width: 767px) {
+    #quiz-question {
+      color: #000 !important;
+    }
+  }
+
 </style>
 
 <script>
@@ -240,11 +246,12 @@ import Layout from "@/layouts/Layout.astro";
         { label: "REALIDAD" },
       ],
       correct: "MITO",
-      message:
-        "La realidad es que la mayoría de las personas, incluso si tienen una dieta variada y saludable, no ingieren la cantidad diaria necesaria de nutrientes esenciales. En parte, esto se debe a que actualmente muchos de los alimentos que consumimos son menos ricos en nutrientes que hace décadas, de modo que es muy probable que la dieta no alcance a cubrir todas las necesidades que el cuerpo necesita.",
+      messageHtml:
+        "La realidad es que la mayoría de las personas, incluso si tienen una dieta variada y saludable, no ingieren la cantidad diaria necesaria de nutrientes esenciales. En parte, esto se debe a que actualmente muchos de los alimentos que consumimos son menos ricos en nutrientes que hace décadas, de modo que es muy probable que la dieta no alcance a cubrir todas las necesidades que el cuerpo necesita.<sup>1,2,3</sup>",
       referencesHtml:
         "<strong>Referencias:</strong> <strong>1.</strong> Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15. <strong>2.</strong> Monografía Dayamineral Jarabe. Junio 2019. <strong>3.</strong> Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
       textColor: "#111827",
+      counterColor: "#ff6900",
       logoVariant: "dark",
       side: "start",
     },
@@ -255,11 +262,12 @@ import Layout from "@/layouts/Layout.astro";
         { label: "REALIDAD" },
       ],
       correct: "MITO",
-      message:
-        "Es todo lo contrario, ya que las vitaminas y minerales influyen directamente en la salud a largo plazo, por lo que es muy importante mantener unos niveles adecuados. Por ejemplo, los niveles óptimos de vitaminas, como la D, se asocian con una mejor función inmunitaria. Asimismo, las personas que consumen multivitamínicos presentan un menor deterioro cognitivo a medida que envejecen.",
+      messageHtml:
+        "Es todo lo contrario, ya que las vitaminas y minerales influyen directamente en la salud a largo plazo, por lo que es muy importante mantener unos niveles adecuados. Por ejemplo, los niveles óptimos de vitaminas, como la D, se asocian con una mejor función inmunitaria. Asimismo, las personas que consumen multivitamínicos presentan un menor deterioro cognitivo a medida que envejecen.<sup>1</sup>",
       referencesHtml:
         "<strong>Referencia:</strong> Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.",
       textColor: "#ffffff",
+      counterColor: "#ffd100",
       logoVariant: "light",
       side: "end",
     },
@@ -271,11 +279,12 @@ import Layout from "@/layouts/Layout.astro";
         { label: "REALIDAD" },
       ],
       correct: "REALIDAD",
-      message:
-        "Dado que Dayamineral ayuda a obtener las cantidades necesarias de nutrientes que no son cubiertas con la alimentación, las personas que lo consumen obtienen un aumento de la energía, así como una mejora del metabolismo, el sistema inmune y la función cognitiva.",
+      messageHtml:
+        "Dado que Dayamineral ayuda a obtener las cantidades necesarias de nutrientes que no son cubiertas con la alimentación, las personas que lo consumen obtienen un aumento de la energía, así como una mejora del metabolismo, el sistema inmune y la función cognitiva.<sup>1,2</sup>",
       referencesHtml:
         "<strong>Referencias:</strong> <strong>1.</strong> Office of Dietary Supplements. Multivitamin/mineral supplements: fact sheet for health professionals [Internet]. Bethesda (MD): National Institutes of Health. Disponible en: https://n9.cl/tjvn01 <strong>2.</strong> Garg V, Lin J, Gadzhieva-Moore A, et al. The role of multivitamin and mineral supplements in supporting health and well-being: a retrospective cross-sectional study in Taiwan. J Health Popul Nutr. 2025;44(1):423.",
       textColor: "#111827",
+      counterColor: "#ff6900",
       logoVariant: "dark",
       side: "end",
     },
@@ -287,11 +296,12 @@ import Layout from "@/layouts/Layout.astro";
         { label: "REALIDAD" },
       ],
       correct: "MITO",
-      message:
-        "Al ser un producto que influye en la salud humana, los suplementos multivitamínicos y minerales deben contar con el aval de la autoridad sanitaria técnica y científica del país donde se comercializa, lo que garantiza su calidad y seguridad. Por ello, es importante elegir productos de marcas de confianza, reconocidas por sus altos estándares de calidad, como es el caso de Dayamineral, que cuenta con el respaldo Abbott. Además, los casos reales de efectos negativos para la salud derivados de una ingesta excesiva de suplementos son poco frecuentes.",
+      messageHtml:
+        "Al ser un producto que influye en la salud humana, los suplementos multivitamínicos y minerales deben contar con el aval de la autoridad sanitaria técnica y científica del país donde se comercializa, lo que garantiza su calidad y seguridad. Por ello, es importante elegir productos de marcas de confianza, reconocidas por sus altos estándares de calidad, como es el caso de Dayamineral, que cuenta con el respaldo Abbott. Además, los casos reales de efectos negativos para la salud derivados de una ingesta excesiva de suplementos son poco frecuentes.<sup>1,2,3</sup>",
       referencesHtml:
         "<strong>Referencias:</strong> <strong>1.</strong> Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15. <strong>2.</strong> Monografía Dayamineral Jarabe. Junio 2019. <strong>3.</strong> Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
       textColor: "#ffffff",
+      counterColor: "#ffd100",
       logoVariant: "light",
       side: "end",
     },
@@ -303,11 +313,12 @@ import Layout from "@/layouts/Layout.astro";
         { label: "REALIDAD" },
       ],
       correct: "MITO",
-      message:
-        "El consumo de suplementos multivitamínicos y minerales forma parte de un conjunto de hábitos saludables, que incluye una alimentación balanceada, ejercicio regular, dormir lo suficiente, evitar fumar y acudir periódicamente al médico. Los suplementos, por sí solos, no corrigen estilos de vida poco saludables. Su papel es complementar, no sustituir, y su beneficio es mayor cuando se integran dentro de un estilo de vida que favorece el bienestar general.",
+      messageHtml:
+        "El consumo de suplementos multivitamínicos y minerales forma parte de un conjunto de hábitos saludables, que incluye una alimentación balanceada, ejercicio regular, dormir lo suficiente, evitar fumar y acudir periódicamente al médico. Los suplementos, por sí solos, no corrigen estilos de vida poco saludables. Su papel es complementar, no sustituir, y su beneficio es mayor cuando se integran dentro de un estilo de vida que favorece el bienestar general.<sup>1</sup>",
       referencesHtml:
         "<strong>Referencia:</strong> Mister S. Five Myths About Dietary Supplements-And the Truth You Should Know. Integr Med (Encinitas). 2025 Dec;24(6):14-15.",
       textColor: "#111827",
+      counterColor: "#ff6900",
       logoVariant: "dark",
       side: "end",
     },
@@ -319,11 +330,12 @@ import Layout from "@/layouts/Layout.astro";
         { label: "REALIDAD" },
       ],
       correct: "REALIDAD",
-      message:
-        "Algunas situaciones, como la actividad física intensa, el estrés y los estados de convalecencia, entre otras, aumentan las necesidades del organismo de vitaminas y minerales para funcionar correctamente y mantener la salud.",
+      messageHtml:
+        "Algunas situaciones, como la actividad física intensa, el estrés y los estados de convalecencia, entre otras, aumentan las necesidades del organismo de vitaminas y minerales para funcionar correctamente y mantener la salud.<sup>1,2</sup>",
       referencesHtml:
         "<strong>Referencias:</strong> <strong>1.</strong> Monografía Dayamineral Jarabe. Junio 2019. <strong>2.</strong> Monografía Dayamineral Tabletas Recubiertas. Marzo 2019.",
       textColor: "#111827",
+      counterColor: "#ff6900",
       logoVariant: "dark",
       side: "end",
     },
@@ -419,10 +431,10 @@ import Layout from "@/layouts/Layout.astro";
     progress.setAttribute("aria-valuenow", String(progressValue));
     progressBar.style.width = `${(progressValue / questions.length) * 100}%`;
     counter.textContent = `${currentQuestion + 1}.`;
+    counter.style.color = question.counterColor;
     questionText.innerHTML = question.questionHtml;
     questionCopy.style.color = question.textColor;
     questionCopy.style.setProperty("--question-copy-bg", question.logoVariant === "light" ? "rgba(17, 24, 39, 0.86)" : "rgba(255, 255, 255, 0.86)");
-    counter.style.color = question.textColor;
     questionText.style.color = question.textColor;
     resetButton.style.color = question.textColor;
     muteButton.style.color = question.textColor;
@@ -534,7 +546,8 @@ import Layout from "@/layouts/Layout.astro";
     modalIcon.src = isCorrect
       ? `${URL_BASE}/iconos/check.webp`
       : `${URL_BASE}/iconos/rayo.webp`;
-    modalMessage.textContent = question.message;
+    modalIcon.classList.toggle("hidden", isCorrect);
+    modalMessage.innerHTML = question.messageHtml;
     const modalBgColor = isCorrect ? "#e86408" : "#b50064";
     modalCard.style.backgroundImage = "none";
     modalCard.style.backgroundColor = modalBgColor;
